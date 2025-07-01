@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}#{{ recipe.id ~" "~ recipe.slug }}{% endblock %}
+
+{% block body %}
+{# <h3>
+Bienvenu sur la recette numéro {{ recipe.id }}
+</h3> #}
+<h1>
+{{ recipe.title |title }}
+</h1>
+{# <p>
+Recette créé par {{ user.firstname }} {{ user.lastname }}
+{{ dump(user) }}
+Recette créé par {{ user.firstName ~" "~ user.lastName }}
+</p>
+<br> #}
+<p>
+{{ recipe.content | nl2br}}
+</p>
+{% endblock %}

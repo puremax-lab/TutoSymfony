@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des recettes{% endblock %}
+
+{% block body %}
+<h3>
+Voici la liste des recettes
+</h3>
+<ul>
+    {# <li>
+        <a href={{ path("app_recipe_show", {id:recettes.0.id, slug:recettes.0.slug}) }}>
+        {{ recettes.0.title }}
+        </a>
+    </li>
+    <li>
+        <a href={{ path("app_recipe_show", {id:recettes.1.id, slug:recettes.1.slug}) }}>
+        {{ recettes.1.title }}
+        </a>
+    </li>
+    <li>
+        <a href={{ path("app_recipe_show", {id:recettes.2.id, slug:recettes.2.slug}) }}>
+        {{ recettes.2.title }}
+        </a>
+    </li> #}
+    
+    {# On peut faire une boucle pour afficher toutes les recettes #}
+    {% for recipe in recipes %}
+        <li>
+            <a href={{ path("app_recipe_show", {id: recipe.getId, slug: recipe.getSlug}) }}>
+            {{ recipe.getTitle }}
+            </a>
+        </li>
+    {% else %}
+        <li>Pas encore de recettes</li>
+    {% endfor %}
+</ul>
+            
+{% endblock %}

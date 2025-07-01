@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ recipe.id ~" "~ recipe.slug }}{% endblock %}
+
+{% block body %}
+<h1>{{ recipe.title | title }}</h1>
+
+{# attention, le form est la fonction symfony monform est le nom qui vient de la methode #}
+{{ form(monForm) }}
+{# {{ form_start(monForm) }}
+    <div class = "d-flex">
+        {{ form_row(monForm.title) }}
+        {{ form_row(monForm.duration) }}
+    </div>
+{{ form_end(monForm) }} #}
+
+
+{% endblock %}
