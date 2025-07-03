@@ -13,10 +13,17 @@
         {% endblock %}
     </head>
     <body>
+
         {{ include("/layouts/partials/_nav.html.twig") }}
+
         <div class = "container my-4">
-            {{ dump(app.flashes) }}
-            {% block body %}{% endblock %}
+
+        {{ include("/layouts/partials/_flash.html.twig") }}
+            
+            {# {{ dump(app.flashes) }} #}
+
+        {% block body %}{% endblock %}
+
         </div>
         {{ include("/layouts/partials/_footer.html.twig") }}
     </body>
