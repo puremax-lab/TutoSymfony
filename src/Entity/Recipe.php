@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[ORM\Table(name: "recipes")]
@@ -16,12 +17,18 @@ class Recipe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le titre ne peut pas être vide.')]
+    #[Assert\Length(min: 10, minMessage: 'Le titre doit comporter au moins {{ limit }} caractères.')]
+    #[Assert\Length(max: 50, maxMessage: 'Le titre ne peut pas dépasser {{ limit }} caractères.')]
+    #[Assert\NotEqualTo("Merde", message: 'Le titre ne peut pas être "Merde".')]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'Le contenu ne peut pas être vide.')]
+    #[Assert\Length(min: 20, minMessage: 'Le contenu doit comporter au moins {{ limit }} caractères.')]
     private ?string $content = null;
 
     #[ORM\Column]
@@ -31,6 +38,8 @@ class Recipe
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Positive(message: 'La durée doit être un nombre positif.')]
+    #[Assert\LessThan(1440, message: 'La durée doit être inférieure à 24 heures (1440 minutes).')]
     private ?int $duration = null;
 
     public function getId(): ?int
