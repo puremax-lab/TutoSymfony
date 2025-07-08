@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\RecipeRepository;
 use App\Entity\Recipe;
 use App\Form\RecipeForm;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -99,6 +100,7 @@ final class RecipeController extends AbstractController
         $form->handleRequest($request);
         // dd($recipe);
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setUpdatedAt(new DateTimeImmutable());
             $em->flush();
             $this->addFlash("success", "La recette a bien été modifiée");
             return $this->redirectToRoute("app_recipe_index");
@@ -109,19 +111,29 @@ final class RecipeController extends AbstractController
         ]);
     }
 
-        #[Route(path: "/recette/create", name: "app_recipe_create")]
+    #[Route(path: "/recette/create", name: "app_recipe_create")]
     public function create(Request $request, EntityManagerInterface $em) : Response{
-        $recipe = new Recipe();
+        $recipe = new Recipe;
         $form = $this->createForm(RecipeForm::class, $recipe);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setCreatedAt(new DateTimeImmutable());
+            $recipe->setUpdatedAt(new DateTimeImmutable());
             $em->persist($recipe);
             $em->flush();
-            $this->addFlash("success", "La recette ". $recipe->gettitle() . " a bien été modifiée");
+            $this->addFlash("success", "La recette ". $recipe->getTitle() . " a bien été crée");
             return $this->redirectToRoute("app_recipe_index");
         }
         return $this->render("recipe/create.html.twig", [
-            "monForm" => $form
+            "form" => $form
         ]);
     }
-}
+        #[Route(path: "/recette/{id}/delete", name: "app_recipe_delete")]
+        public function delete(Recipe $recipe, EntityManagerInterface $em) : Response{
+            $titre = $recipe->getTitle();
+            $em->remove($recipe);
+            $em->flush();
+            $this->addFlash("info", "La recette ". $titre . " a bien été supprimée");
+            return $this->redirectToRoute("app_recipe_index");
+        }
+    }
