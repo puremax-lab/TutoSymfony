@@ -18,7 +18,10 @@
     <p>
     {{ recipe.content | nl2br}}
     </p>
-
+    <small>Submitted {{ recipe.createdAt | date('d/m/Y') }}</small>
+    <br>
+    <small>Updated {{ recipe.updatedAt | date('d/m/Y h:i') }}</small>
+    <br>
     <a class="btn btn-primary btn-sm" href={{ path('app_recipe_edit', {id: recipe.id}) }}>
         Edit Recipe
     </a>
@@ -32,5 +35,7 @@
         Go Back
     </a>
     <form id="js-recipe-delete-form" action={{ path('app_recipe_delete',{id: recipe.id})}} method="post" style="display:none;"></form>
+
+
 
 {% endblock %}

@@ -1,1 +1,17 @@
+.alert{
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
 
+.alert-success {
+    background-color: #4CAF50; /* Green */
+}
+
+.alert-error {
+    background-color: #f44336; /* Red */
+}
+
+.alert-info {
+    background-color: #2196F3; /* Blue */
+}
