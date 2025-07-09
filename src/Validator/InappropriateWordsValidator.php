@@ -44,3 +44,5 @@ class InappropriateWordsValidator extends ConstraintValidator
                     ->addViolation();
             }
         }
+    }
+}
