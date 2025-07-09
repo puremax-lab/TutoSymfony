@@ -29,6 +29,7 @@ class RecipeForm extends AbstractType
             // ->add('updatedAt', null, [
             //     'widget' => 'single_text',
             // ])
+            ->add('imageName', TextType::class)
             ->add('duration')
             ->add("save", SubmitType::class, [
                 'label' => "Envoyer"])

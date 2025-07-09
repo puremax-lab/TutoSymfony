@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Traits\Timestampable;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[ORM\Table(name: "recipes")]
@@ -21,7 +22,7 @@ class Recipe
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: 'Le titre ne peut pas être vide.')]
-    #[Assert\Length(min: 10, minMessage: 'Le titre doit comporter au moins {{ limit }} caractères.')]
+    // #[Assert\Length(min: 10, minMessage: 'Le titre doit comporter au moins {{ limit }} caractères.')]
     #[Assert\Length(max: 50, maxMessage: 'Le titre ne peut pas dépasser {{ limit }} caractères.')]
     // #[Assert\NotEqualTo("Merde", message: 'Le titre ne peut pas être "Merde".')]
     #[InappropriateWords()]
@@ -35,11 +36,8 @@ class Recipe
     #[Assert\Length(min: 20, minMessage: 'Le contenu doit comporter au moins {{ limit }} caractères.')]
     private ?string $content = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    use Timestampable;
 
     #[ORM\Column(nullable: true)]
     #[Assert\Positive(message: 'La durée doit être un nombre positif.')]
@@ -47,7 +45,7 @@ class Recipe
     private ?int $duration = null;
 
     #[ORM\Column(length: 500, nullable: true)]
-    private ?string $imageName = null;
+    private ?string $imageName = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
 
     public function getId(): ?int
     {
@@ -86,30 +84,6 @@ class Recipe
     public function setContent(string $content): static
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }
