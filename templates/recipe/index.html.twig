@@ -58,6 +58,8 @@ Voici la liste des recettes
                     <p>
                         Submitted {{ recipe.createdAt |ago(locale='fr') }}
                     </p>
+                    <p>By {{ recipe.user.firstname }} {{ recipe.user.lastname }}
+                    </p>
                 </div>
             {% else %}
                 <p>Pas encore de recette</p>

@@ -22,6 +22,9 @@
             {{ recipe.content | nl2br}}
             </h5>
             <p>
+                By {{ recipe.user.firstname }} {{ recipe.user.lastname }}
+            </p>
+            <p>
                 Submitted {{ recipe.createdAt | date('d/m/Y') }}
             </p>
             <br>
