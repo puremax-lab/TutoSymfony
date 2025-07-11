@@ -6,6 +6,7 @@ use App\Entity\Recipe;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,20 +20,22 @@ class RecipeForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, [
-                'label' => "Titre"])
+            ->add('title', TextType::class,[
+                "label" => "recipeForm.title",
+            ])
             ->add('slug', HiddenType::class)
-            ->add('content', TextareaType::class)
-            // ->add('createdAt', null, [
-            //     'widget' => 'single_text',
-            // ])
-            // ->add('updatedAt', null, [
-            //     'widget' => 'single_text',
-            // ])
-            ->add('imageName', TextType::class)
-            ->add('duration')
+            ->add('content', TextareaType::class, [
+                "label" => "recipeForm.content",
+            ])
+            ->add('imageName', TextType::class,[
+                    "label" => "recipeForm.image_name",
+            ])
+            ->add('duration',NumberType::class, [
+                "label" => "recipeForm.duration",
+            ])
             ->add("save", SubmitType::class, [
-                'label' => "Envoyer"])
+                "label" => "recipeForm.save",
+            ])
             ->addEventListener(FormEvents::PRE_SUBMIT, $this->autoSlug(...));
         ;
     }

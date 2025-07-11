@@ -1,0 +1,20 @@
+# Title : "Titre"
+# Content : "Description"
+# Duration : "Durée"
+# Image name : "Image"
+# Save : "Enregistrer"
+
+recipeForm:
+  title: "Titre"
+  content: "Description"
+  duration: "Durée"
+  image_name: "Image"
+  save: "Enregistrer"
+navBar:
+  home: "Accueil"
+  recipes: "liste des recettes"
+  addRecipe: "Ajouter une recette"
+  signUp: "S'enregistrer"
+  login: "Se connecter"
+  logout: "Se déconnecter"
+  account: "Mon compte"
