@@ -117,6 +117,7 @@ final class RecipeController extends AbstractController
         $form = $this->createForm(RecipeForm::class, $recipe);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setUser($this->getUser());
             $recipe->setCreatedAt(new DateTimeImmutable());
             $recipe->setUpdatedAt(new DateTimeImmutable());
             $em->persist($recipe);
